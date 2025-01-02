@@ -1,2 +1,2 @@
 # brainly
-second brain
+second brain app
