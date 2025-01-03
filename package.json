@@ -1,0 +1,24 @@
+{
+  "name": "brainly",
+  "version": "1.0.0",
+  "description": "second brain app - https://petal-estimate-4e9.notion.site/Building-a-second-brain-app-1407dfd1073580c19ac3cbe9afa9ac27\r backend - https://app.100xdevs.com/courses/14/583/602",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sansela/brainly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sansela/brainly/issues"
+  },
+  "homepage": "https://github.com/sansela/brainly#readme",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "express": "^4.21.2"
+  }
+}
