@@ -10,6 +10,7 @@ app.post('/api/v1/signup', async(req, res) => {
     const username = req.body.username;
     const passowrd = req.body.password;
 
+   try{
     await UserModel.create({
         username: username,
         password: passowrd
@@ -18,6 +19,11 @@ app.post('/api/v1/signup', async(req, res) => {
     res.json({
         message: "user has signed up"
     });
+   } catch {
+    res.status(411).json({
+        message: "user already exists"
+    })
+   }
 
 });
 
