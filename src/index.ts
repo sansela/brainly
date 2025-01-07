@@ -1,8 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
+import 'dotenv/config'
 import jwt from "jsonwebtoken";
 import { UserModel } from "./db";
 
+const JWT_PASSWORD = process.env.JWT_PASSWORD as string;
 const app = express();
 app.use(express.json());
 app.post('/api/v1/signup', async(req, res) => {
@@ -27,7 +29,27 @@ app.post('/api/v1/signup', async(req, res) => {
 
 });
 
-app.post('/api/v1/signin', (req, res) => {
+app.post('/api/v1/signin', async(req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const existingUser = await UserModel.findOne({
+        username,
+        password
+    });
+
+    if(existingUser) {
+        const token = jwt.sign({
+            id: existingUser._id
+        }, JWT_PASSWORD);
+        res.json({
+            token
+        })
+    } else {
+        res.status(403).json({
+            message: "Incorrect Credentials"
+        });
+    }
 
 });
 

@@ -1,6 +1,8 @@
 import mongoose, { Schema, model} from "mongoose";
 
-mongoose.connect("");
+const MONGO_URI = process.env.MONGO_URI as string;
+
+mongoose.connect(MONGO_URI);
 
 const userSchema = new Schema({
     username: {type: String, unique: true},
