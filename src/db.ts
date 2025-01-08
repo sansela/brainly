@@ -1,4 +1,4 @@
-import mongoose, { Schema, model} from "mongoose";
+import mongoose, { Schema, model, mongo} from "mongoose";
 
 const MONGO_URI = process.env.MONGO_URI as string;
 
@@ -10,4 +10,14 @@ const userSchema = new Schema({
 });
 
 export const UserModel = model("User", userSchema);
+
+const contentSchema = new Schema({
+    type: String,
+    link: String,
+    title: String,
+    tags: [{type: mongoose.Types.ObjectId, ref: 'Tag'}],
+    userId: {type: mongoose.Types.ObjectId, ref: 'User'}
+});
+
+export const ContentModel = model("Content", contentSchema);
 
