@@ -2,9 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import 'dotenv/config'
 import jwt from "jsonwebtoken";
-import { UserModel } from "./db";
+import { ContentModel, UserModel } from "./db";
+import { userMiddleware } from "./middleware";
+import { JWT_PASSWORD } from "./config";
 
-const JWT_PASSWORD = process.env.JWT_PASSWORD as string;
 const app = express();
 app.use(express.json());
 app.post('/api/v1/signup', async(req, res) => {
@@ -53,7 +54,29 @@ app.post('/api/v1/signin', async(req, res) => {
 
 });
 
-app.post('/api/v1/content', (req, res) => {
+app.post('/api/v1/content', userMiddleware, async(req, res) => {
+    const type = req.body.type;
+    const link = req.body.link;
+    const title = req.body.title;
+    const userId = req.body.userId;
+
+    try {
+         await ContentModel.create({
+            type,
+            link,
+            title,
+            userId,
+            tags: []
+        });
+        res.json({
+            message: "contents added successfully"
+        });
+    } catch(e) {
+        res.status(403).json({
+            message: "Content NOT added. Please try again"
+        })
+    }
+    
 
 })
 
