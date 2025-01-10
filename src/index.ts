@@ -58,7 +58,8 @@ app.post('/api/v1/content', userMiddleware, async(req, res) => {
     const type = req.body.type;
     const link = req.body.link;
     const title = req.body.title;
-    const userId = req.body.userId;
+    // @ts-ignore
+    const userId = req.userId;
 
     try {
          await ContentModel.create({
@@ -80,7 +81,16 @@ app.post('/api/v1/content', userMiddleware, async(req, res) => {
 
 })
 
-app.get('/api/v1/content', (req, res) => {
+app.get('/api/v1/content', userMiddleware, async(req, res) => {
+
+    //@ts-ignore
+    const userId = req.userId;
+    const content = await ContentModel.find({
+        userId
+    });
+    res.json({
+        content
+    });
 
 });
 
